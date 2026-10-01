@@ -10,7 +10,7 @@ import IkigaiVenn from '../illustrations/IkigaiVenn.astro';
 import Mini from '../illustrations/Mini.astro';
 import DataFlow from '../illustrations/DataFlow.astro';
 import ClarityAvatar from '../illustrations/ClarityAvatar.astro';
-import NorthStar from '../illustrations/NorthStar.astro';
+import Loop from './Loop.astro';
 import { t, type Lang } from '../i18n';
 import { LINKS } from '../lib/links';
 import release from '../data/release.json';
@@ -28,6 +28,7 @@ const clarityIcons = ['KeyRound', 'Bot', 'ShieldCheck'] as const;
 const yoursIcons = ['HardDrive', 'ShieldCheck', 'Download', 'Code'] as const;
 const weekIcons = ['Sunrise', 'PenLine', 'BellRing', 'RotateCcw'] as const;
 const builderIcons = ['Server', 'Terminal', 'Code'] as const;
+const startLoops = ['chapter', 'wheel', 'steps', 'clarity'] as const;
 const builderLinks = [LINKS.selfHost, LINKS.agents, LINKS.github];
 const builderCmds = ['curl -fsSL https://dreamward.life/install.sh | sudo bash', 'npx dreamward setup', ''];
 const providers = ['OpenAI', 'Anthropic', 'Gemini', 'OpenRouter', 'Mistral', 'Groq', 'DeepSeek', 'Ollama', 'LM Studio'];
@@ -205,11 +206,32 @@ const providers = ['OpenAI', 'Anthropic', 'Gemini', 'OpenRouter', 'Mistral', 'Gr
   </div>
 </section>
 
-<!-- 8 · Download -->
+<!-- 8 · Your first 15 minutes -->
+<section class="section" id="start" aria-labelledby="start-title">
+  <div class="wrap">
+    <div class="head reveal">
+      <Eyebrow step={7} text={d.start.eyebrow} />
+      <h2 id="start-title">{d.start.title}</h2>
+      <p>{d.start.lede}</p>
+    </div>
+    <ol class="start">
+      {d.start.steps.map((s, i) => (
+        <li class="start-step reveal">
+          <Loop name={startLoops[i]!} />
+          <span class="num" aria-hidden="true">0{i + 1}</span>
+          <h3>{s.title}</h3>
+          <p>{s.body}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<!-- 9 · Download -->
 <section class="section" id="download" aria-labelledby="download-title">
   <div class="wrap">
     <div class="head reveal">
-      <Eyebrow step={7} text={`${d.download.eyebrow}${version ? ` · ${version}` : ''}`} />
+      <Eyebrow step={8} text={`${d.download.eyebrow}${version ? ` · ${version}` : ''}`} />
       <h2 id="download-title">{d.download.title}</h2>
       <p>{d.download.lede}</p>
     </div>
@@ -264,11 +286,11 @@ const providers = ['OpenAI', 'Anthropic', 'Gemini', 'OpenRouter', 'Mistral', 'Gr
   </div>
 </section>
 
-<!-- 9 · For builders -->
+<!-- 10 · For builders -->
 <section class="section" aria-labelledby="builders-title">
   <div class="wrap">
     <div class="head reveal">
-      <Eyebrow step={8} text={d.builders.eyebrow} />
+      <Eyebrow step={9} text={d.builders.eyebrow} />
       <h2 id="builders-title">{d.builders.title}</h2>
     </div>
     <div class="builders">
@@ -289,11 +311,11 @@ const providers = ['OpenAI', 'Anthropic', 'Gemini', 'OpenRouter', 'Mistral', 'Gr
   </div>
 </section>
 
-<!-- 10 · FAQ -->
+<!-- 11 · FAQ -->
 <section class="section" aria-labelledby="faq-title">
   <div class="wrap">
     <div class="head center reveal">
-      <Eyebrow step={9} text={d.faq.eyebrow} />
+      <Eyebrow step={10} text={d.faq.eyebrow} />
       <h2 id="faq-title">{d.faq.title}</h2>
     </div>
     <div class="faq">
@@ -304,11 +326,11 @@ const providers = ['OpenAI', 'Anthropic', 'Gemini', 'OpenRouter', 'Mistral', 'Gr
   </div>
 </section>
 
-<!-- 11 · Who made this -->
+<!-- 12 · Who made this -->
 <section class="section" aria-labelledby="maker-title">
   <div class="wrap">
     <div class="maker card reveal">
-      <Eyebrow step={10} text={d.maker.eyebrow} />
+      <Eyebrow step={11} text={d.maker.eyebrow} />
       <h2 id="maker-title">{d.maker.title}</h2>
       <p>{d.maker.body}</p>
       <p>{d.maker.work}</p>
@@ -320,10 +342,10 @@ const providers = ['OpenAI', 'Anthropic', 'Gemini', 'OpenRouter', 'Mistral', 'Gr
   </div>
 </section>
 
-<!-- 12 · The last step -->
+<!-- 13 · The last step -->
 <section class="section final" aria-labelledby="final-title">
   <div class="wrap reveal">
-    <NorthStar class="star" />
+    <Loop name="welcome" class="final-loop" />
     <h2 id="final-title">{d.final.title}<span class="b">{d.final.titleB}</span></h2>
     <a class="btn btn-primary" href="#download" data-final-download><Icon name="Download" />{d.final.cta}</a>
     <small>{d.final.sub}</small>

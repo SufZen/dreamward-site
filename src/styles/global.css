@@ -272,6 +272,17 @@ main { position: relative; }
 .faq .a { padding: 0 22px 20px; color: var(--muted); }
 
 /* ── Final call to action ──────────────────────────────────────────────── */
+/* ── Onboarding loops + your first 15 minutes ───────────────────────── */
+.loop { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; background: #0a0a0f; border: 1px solid var(--line); border-radius: 14px; }
+.start { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
+.start-step { display: flex; flex-direction: column; gap: 10px; background: var(--raised); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 14px 22px; }
+.start-step .num { margin-top: 6px; font-family: var(--mono); font-size: 13px; color: var(--gold); }
+.start-step h3 { font-size: 19px; }
+.start-step p { color: var(--muted); font-size: 15px; }
+@media (max-width: 1100px) { .start { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 620px) { .start { grid-template-columns: 1fr; } }
+.final .final-loop { max-width: 440px; margin: 0 auto 34px; box-shadow: 0 0 80px rgba(255, 204, 0, 0.08); }
+
 /* ── Who made this ───────────────────────────────────────────────────── */
 .maker { max-width: 820px; margin-inline: auto; padding: 40px; gap: 18px; }
 .maker h2 { font-size: clamp(26px, 3.4vw, 36px); }
