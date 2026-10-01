@@ -304,7 +304,23 @@ const providers = ['OpenAI', 'Anthropic', 'Gemini', 'OpenRouter', 'Mistral', 'Gr
   </div>
 </section>
 
-<!-- 11 · The last step -->
+<!-- 11 · Who made this -->
+<section class="section" aria-labelledby="maker-title">
+  <div class="wrap">
+    <div class="maker card reveal">
+      <Eyebrow step={10} text={d.maker.eyebrow} />
+      <h2 id="maker-title">{d.maker.title}</h2>
+      <p>{d.maker.body}</p>
+      <p>{d.maker.work}</p>
+      <div class="maker-links">
+        <a class="btn btn-secondary" href={LINKS.intro}>{d.maker.cta}</a>
+        <a class="link" href={LINKS.caseStudy}>{d.maker.caseStudy}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 12 · The last step -->
 <section class="section final" aria-labelledby="final-title">
   <div class="wrap reveal">
     <NorthStar class="star" />

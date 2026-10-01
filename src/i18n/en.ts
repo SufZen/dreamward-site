@@ -224,6 +224,14 @@ export const en = {
       { q: 'Why does my computer warn me when I install it?', a: 'Early versions aren’t code-signed yet, so Windows and macOS ask you to confirm once. The code is open, and every download has a published SHA-256 checksum.' },
     ],
   },
+  maker: {
+    eyebrow: 'Who made this',
+    title: 'Made by a person, given to everyone.',
+    body: 'I’m Asaf Eyzenkot. I built Dreamward with Realization and I’m giving it away, because more people living on purpose makes the world better.',
+    work: 'At Realization we design and build AI products, agents and software like this one, for founders and companies. If you have something you want built, let’s talk.',
+    cta: 'Book a 30-minute intro',
+    caseStudy: 'Read the case study',
+  },
   final: {
     title: 'Your next step is small.',
     titleB: 'Take it.',
@@ -234,6 +242,8 @@ export const en = {
     tagline: 'Your dream, one step at a time.',
     links: { github: 'GitHub', docs: 'Docs', releases: 'Releases', community: 'Community', security: 'Security', privacy: 'Privacy' },
     license: 'Free and open source software, AGPL-3.0. Site text CC BY-SA 4.0.',
+    madeBy: 'Made by',
+    buildCta: 'Need an AI product built? Let’s talk',
   },
   privacy: {
     title: 'Privacy',
