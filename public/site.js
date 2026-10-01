@@ -107,6 +107,18 @@ if ('IntersectionObserver' in window && !reduced) {
   reveals.forEach((el) => el.classList.add('in'));
 }
 
+/* ── Onboarding loops: play while on screen; reduced motion keeps the poster ── */
+const loops = [...document.querySelectorAll('video[data-loop]')];
+if (loops.length && 'IntersectionObserver' in window && !reduced) {
+  const lo = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (e.isIntersecting) e.target.play().catch(() => {});
+      else e.target.pause();
+    }
+  }, { threshold: 0.25 });
+  loops.forEach((v) => lo.observe(v));
+}
+
 /* ── "Prefer Hebrew?" — a suggestion, never a redirect ──────────────── */
 const hint = document.getElementById('lang-hint');
 const lang = document.body.dataset.lang;

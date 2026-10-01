@@ -157,6 +157,17 @@ export const en = {
       { day: 'Sunday', title: 'Review', body: 'Re-rate your wheel, celebrate, and choose next week’s steps.' },
     ],
   },
+  start: {
+    eyebrow: 'Your first 15 minutes',
+    title: 'Begin in fifteen minutes.',
+    lede: 'Once Dreamward is installed, four small steps make it yours.',
+    steps: [
+      { title: 'Name your chapter', body: 'Give the season you’re living a name and an intention, and pick 1–5 areas to focus on. The rest can wait.' },
+      { title: 'Rate your life wheel', body: 'For each area: how close is today to your vision, from 1 to 10? Thirty seconds each, and the biggest gap shows itself.' },
+      { title: 'Choose one step', body: 'Turn one goal into an action small enough for this week, and give it a date. Check it off, and the star brightens.' },
+      { title: 'Meet Clarity', body: 'Optional: connect an AI you already use, or a local model, and Clarity helps you plan the week from your own book.' },
+    ],
+  },
   download: {
     eyebrow: 'Download',
     title: 'Take the first step.',

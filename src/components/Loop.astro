@@ -1,0 +1,14 @@
+---
+/* A short, silent, looping onboarding illustration (rendered with Remotion in the Dreamward
+   repo, motion/). Decorative: the copy next to it carries the meaning. It starts paused on its
+   poster; site.js plays it while on screen, unless the visitor prefers reduced motion. */
+import { url } from '../i18n';
+
+interface Props { name: 'welcome' | 'chapter' | 'wheel' | 'steps' | 'clarity'; class?: string }
+const { name, class: cls } = Astro.props;
+const src = (ext: string) => url(`motion/${name}.${ext}`);
+---
+<video class:list={['loop', cls]} data-loop poster={src('webp')} muted loop playsinline preload="none" aria-hidden="true" tabindex="-1" width="720" height="450">
+  <source src={src('webm')} type="video/webm" />
+  <source src={src('mp4')} type="video/mp4" />
+</video>
