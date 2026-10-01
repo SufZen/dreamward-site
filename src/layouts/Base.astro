@@ -1,0 +1,86 @@
+---
+/* Page shell: language + direction, meta, hreflang, social cards, CSP,
+   self-hosted fonts and the one external script. */
+import '@fontsource/poppins/400.css';
+import '@fontsource/poppins/500.css';
+import '@fontsource/poppins/600.css';
+import '@fontsource/rubik/400.css';
+import '@fontsource/rubik/500.css';
+import '@fontsource/rubik/600.css';
+import '@fontsource/jetbrains-mono/500.css';
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { t, url, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description: string;
+  /** '' for home, 'privacy/' for privacy; undefined = no other-language page (404). */
+  page?: '' | 'privacy/';
+  jsonLd?: Record<string, unknown>;
+}
+const { lang, title, description, page, jsonLd } = Astro.props;
+const d = t(lang);
+const site = Astro.site ?? new URL('https://dreamward.life');
+const abs = (path: string) => new URL(path, site).href;
+const enPath = page !== undefined ? url(page) : undefined;
+const hePath = page !== undefined ? url('he/' + page) : undefined;
+const canonical = page !== undefined ? abs(lang === 'he' ? hePath! : enPath!) : undefined;
+// Same-origin only. GitHub Pages can't send headers, so the policy is a meta tag.
+const csp = [
+  "default-src 'self'",
+  "script-src 'self'",
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' data:",
+  "font-src 'self'",
+  "connect-src 'self'",
+  "base-uri 'self'",
+  "form-action 'none'",
+  "object-src 'none'",
+].join('; ');
+---
+<!doctype html>
+<html lang={d.lang} dir={d.dir}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Content-Security-Policy" content={csp} />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#0a0a0f" />
+    <link rel="icon" type="image/svg+xml" href={url('favicon.svg')} />
+    <link rel="apple-touch-icon" href={url('apple-touch-icon.png')} />
+    {canonical && <link rel="canonical" href={canonical} />}
+    {enPath && <link rel="alternate" hreflang="en" href={abs(enPath)} />}
+    {hePath && <link rel="alternate" hreflang="he" href={abs(hePath)} />}
+    {enPath && <link rel="alternate" hreflang="x-default" href={abs(enPath)} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Dreamward" />
+    <meta property="og:locale" content={lang === 'he' ? 'he_IL' : 'en_US'} />
+    {canonical && <meta property="og:url" content={canonical} />}
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={abs(url('social-preview.png'))} />
+    <meta name="twitter:card" content="summary_large_image" />
+    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+    <script type="module" src={url('site.js')}></script>
+  </head>
+  <body data-lang={lang} data-other={page !== undefined ? (lang === 'he' ? enPath : hePath) : ''}>
+    <a class="skip" href="#main">{d.a11y.skip}</a>
+    <div class="lang-hint" id="lang-hint" role="region" aria-label={d.a11y.langNav}>
+      <div class="wrap">
+        <span>{d.langHint.text}</span>
+        <a lang={lang === 'he' ? 'en' : 'he'} href={lang === 'he' ? enPath ?? url('') : hePath ?? url('he/')}>{d.langHint.link}</a>
+        <button type="button" data-dismiss-lang aria-label={d.langHint.close}>×</button>
+      </div>
+    </div>
+    <Header lang={lang} page={page} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer lang={lang} />
+  </body>
+</html>

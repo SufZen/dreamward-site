@@ -1,0 +1,25 @@
+---
+/* IKIGAI: four overlapping circles; the star where all four meet. */
+import { starPath } from '../lib/geom';
+
+interface Props { love: string; good: string; needs: string; paid: string; center: string; label: string }
+const { love, good, needs, paid, center, label } = Astro.props;
+
+const circles = [
+  { cx: 200, cy: 128, tx: 200, ty: 76, text: love },
+  { cx: 128, cy: 200, tx: 84, ty: 204, text: good },
+  { cx: 272, cy: 200, tx: 316, ty: 204, text: needs },
+  { cx: 200, cy: 272, tx: 200, ty: 334, text: paid },
+];
+---
+<svg viewBox="0 0 400 400" role="img" aria-label={label} direction="ltr">
+  {circles.map((c, i) => (
+    <circle cx={c.cx} cy={c.cy} r="96" fill="rgba(255,204,0,0.06)" stroke="#ffcc00" stroke-opacity="0.45" stroke-width="1.5" class="pop" style={`--d:${i * 0.15}s`} />
+  ))}
+  {circles.map((c) => (
+    <text x={c.tx} y={c.ty} text-anchor="middle" fill="#ececf1" font-size="13" font-weight="500">{c.text}</text>
+  ))}
+  <circle cx="200" cy="200" r="30" fill="rgba(255,204,0,0.12)" class="pulse" />
+  <path d={starPath(200, 194, 15)} fill="#ffcc00" class="glow-star" />
+  <text x="200" y="228" text-anchor="middle" fill="#ffcc00" font-size="12.5" font-weight="600">{center}</text>
+</svg>

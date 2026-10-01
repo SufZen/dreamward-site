@@ -1,0 +1,258 @@
+/* English copy. he.ts must have exactly the same shape (it is typed as Dict). */
+export const en = {
+  lang: 'en',
+  dir: 'ltr',
+  meta: {
+    title: 'Dreamward — your dream, one step at a time',
+    description:
+      'Dreamward turns the life you imagine into the next small step. A private book for your whole life, with Clarity, a personal assistant on your own AI. Free and open source.',
+    privacyTitle: 'Privacy — Dreamward',
+    privacyDescription: 'This website collects nothing, and the Dreamward app keeps your book on your own computer or server.',
+    notFoundTitle: 'Lost among the stars — Dreamward',
+  },
+  a11y: {
+    skip: 'Skip to content',
+    home: 'Dreamward home',
+    mainNav: 'Main',
+    footerNav: 'Footer',
+    langNav: 'Language',
+  },
+  nav: {
+    how: 'How it works',
+    inside: 'Inside',
+    clarity: 'Clarity',
+    privacy: 'Privacy',
+    download: 'Download',
+    otherLang: 'עברית',
+    otherLangLabel: 'הגרסה בעברית',
+  },
+  langHint: {
+    text: 'Prefer Hebrew?',
+    link: 'לגרסה בעברית',
+    close: 'Dismiss',
+  },
+  hero: {
+    eyebrow: 'Dreamward · dream + toward',
+    titleA: 'Your dream,',
+    titleB: 'one step at a time.',
+    lede:
+      'Dreamward turns the life you imagine into the next small step you can take this week. A private book for your whole life, and Clarity, a personal assistant that helps you see the way.',
+    download: 'Download Dreamward',
+    downloadFor: { win: 'Download for Windows', mac: 'Download for Mac', linux: 'Download for Linux' },
+    how: 'See how it works',
+    trust: ['Free', 'Open source', 'Your data stays with you'],
+    allDownloads: 'All downloads and install steps',
+  },
+  fade: {
+    eyebrow: 'Why dreams fade',
+    title: 'Dreams rarely fail. They fade.',
+    body:
+      "A list on New Year's Eve. A vision board in a drawer. The dream is big, the week is full, and the two never meet. Not because you stopped caring, but because nothing connects the life you want to the Tuesday you're living.",
+    punch: 'Dreamward is that connection.',
+    chart: {
+      label: 'A chart: the dream stays far above everyday life, which drifts away from it; a path of small steps climbs from daily life up to the dream.',
+      dream: 'The dream',
+      weeks: 'Busy weeks',
+      steps: 'Small steps',
+    },
+  },
+  way: {
+    eyebrow: 'The name is the method',
+    title: 'Dream. Ward. Step.',
+    intro:
+      '“-ward” means toward, as in forward or homeward. Dreamward means toward your dream, and the app follows the same three moves.',
+    items: [
+      {
+        word: 'Dream',
+        title: 'See the whole life you want.',
+        body: 'Write it down across twelve areas of life, from health and love to work, money and meaning: what you believe, what you envision, and who you are becoming.',
+      },
+      {
+        word: 'Ward',
+        title: 'Choose your direction for this season.',
+        body: "Not everything matters equally right now. Name the chapter you're in, pick up to five focus areas, and put the rest on a calm “not now” list.",
+      },
+      {
+        word: 'Step',
+        title: 'Walk it, one small step at a time.',
+        body: 'Turn the vision into goals and actions you can do this week. A weekly review keeps you honest and on the path.',
+      },
+    ],
+  },
+  inside: {
+    eyebrow: 'Inside your book',
+    title: "Everything you need to see clearly. Nothing you don't.",
+    wheel: {
+      title: 'Life wheel',
+      body: 'Rate each area from 1 to 10: how close is today to your vision? Watch the gaps close, season by season.',
+      label: 'A life wheel with twelve areas: today’s ratings in solid gold grow toward the vision, drawn as a dashed outline.',
+      today: 'Today',
+      vision: 'Vision',
+      areas: ['Health', 'Mind', 'Emotions', 'Character', 'Meaning', 'Love', 'Family', 'Friends', 'Money', 'Work', 'Intimacy', 'Joy'],
+    },
+    ikigai: {
+      title: 'IKIGAI',
+      body: 'A guided, fifteen-minute walk through four circles, ending in the sentence that says why you get up in the morning.',
+      label: 'Four overlapping circles: what you love, what you are good at, what the world needs and what you can be paid for. Ikigai is where all four meet.',
+      love: 'What you love',
+      good: 'What you’re good at',
+      needs: 'What the world needs',
+      paid: 'What you can be paid for',
+      center: 'Ikigai',
+    },
+    features: [
+      { icon: 'chapter', title: 'Chapters', body: 'Life moves in seasons. Each chapter has its own focus, and you can look back on every one.' },
+      { icon: 'goals', title: 'Goals & momentum', body: 'Honest progress, weekly momentum, and a gentle flag when a goal starts to drift.' },
+      { icon: 'journal', title: 'Journal', body: 'Capture wins, doubts and ideas. They become part of the story you’re writing.' },
+      { icon: 'boards', title: 'Vision boards', body: 'Images and words that make the dream visible, on a canvas you design.' },
+    ],
+    chapterNow: 'Now',
+    momentum: 'At risk',
+  },
+  clarity: {
+    eyebrow: 'Meet Clarity',
+    title: 'Someone to think with.',
+    body:
+      'Clarity is a personal assistant that knows your whole book. It helps you see what you truly want, find your direction, and take the next step. It plans your morning, prepares your weekly review, notices when a goal drifts, and suggests changes that you approve.',
+    chatLabel: 'An example conversation with Clarity',
+    you: 'You',
+    userMsg: 'I keep saying I’ll write the book, and then the week disappears.',
+    clarityMsg:
+      'Here’s what I’m hearing: the book matters to you, but it keeps losing to everything urgent. Creativity is one of your focus areas this chapter. One small step: block 30 minutes on Thursday morning to outline chapter one. Shall I add it?',
+    proposalKind: 'New action',
+    proposal: 'Outline chapter one · Thursday, 8:00',
+    approve: 'Approve',
+    edit: 'Edit',
+    points: [
+      { title: 'Your AI, your bill', body: 'Connect OpenAI, Anthropic, Gemini, OpenRouter or a local model. Dreamward never pays for your AI, and never sees it.' },
+      { title: 'Or bring your agent', body: 'Already pay for Claude, ChatGPT or Gemini? Connect it with one command, and Clarity’s rituals run on your subscription.' },
+      { title: 'Nothing changes without you', body: 'Every change is a proposal you approve, and every change is logged.' },
+    ],
+  },
+  yours: {
+    eyebrow: 'Private by design',
+    title: 'Your dreams are nobody’s business model.',
+    body: 'There is no Dreamward cloud. Your book lives on your computer, or on a server you control. Clarity talks only to the AI you choose, and only when you ask.',
+    diagram: {
+      label: 'Your book stays on your computer. The only connection is to an AI you choose, and there is no Dreamward cloud.',
+      computer: 'Your computer',
+      book: 'Your book',
+      ai: 'Your AI (optional)',
+      noCloud: 'No Dreamward cloud',
+    },
+    points: [
+      { title: 'On your machine', body: 'The desktop app keeps your book on your computer. Self-hosted, every person gets their own database.' },
+      { title: 'Checked and backed up', body: 'Your book is checked and backed up before every update, and every day after that.' },
+      { title: 'Take it anywhere', body: 'Download your whole book at any time and import it into another install.' },
+      { title: 'Open source, no tracking', body: 'AGPL-3.0, no telemetry. Read the code, run it, improve it.' },
+    ],
+  },
+  week: {
+    eyebrow: 'A week with Dreamward',
+    title: 'Five minutes a day. An hour a week. A life that adds up.',
+    days: [
+      { day: 'Monday', title: 'Plan', body: 'One clear focus for today, drawn from your chapter.' },
+      { day: 'Wednesday', title: 'Journal', body: 'Write down a small win. It counts.' },
+      { day: 'Friday', title: 'Nudge', body: 'A goal is drifting. Clarity offers a smaller next step.' },
+      { day: 'Sunday', title: 'Review', body: 'Re-rate your wheel, celebrate, and choose next week’s steps.' },
+    ],
+  },
+  download: {
+    eyebrow: 'Download',
+    title: 'Take the first step.',
+    lede: 'Free. Your book stays on your computer, and new versions install themselves.',
+    mobile: 'Dreamward runs on computers: Windows, Mac and Linux. Open dreamward.life on your computer to download it.',
+    share: 'Send this page to your computer',
+    tabsLabel: 'Choose your computer',
+    checksum: 'SHA-256',
+    win: {
+      tab: 'Windows',
+      button: 'Download for Windows',
+      note: 'Windows 10 or 11, 64-bit',
+      steps: [
+        { title: 'Open the file you downloaded', body: 'Dreamward-Setup.exe, in your Downloads folder.' },
+        { title: 'If you see “Windows protected your PC”', body: 'Click More info, then Run anyway. It appears once, because early versions aren’t signed yet.' },
+        { title: 'Follow the installer', body: 'Dreamward opens when it’s done. Updates install themselves.' },
+      ],
+    },
+    mac: {
+      tab: 'Mac',
+      button: 'Download for Mac (Apple silicon)',
+      buttonIntel: 'Download for Mac (Intel)',
+      hint: 'Not sure which? Apple menu → About This Mac. “Chip: Apple M…” means Apple silicon; “Processor: Intel” means Intel.',
+      steps: [
+        { title: 'Open the downloaded file', body: 'Drag Dreamward into your Applications folder.' },
+        { title: 'Open it the first time with a right-click', body: 'In Applications, right-click (or Control-click) Dreamward, choose Open, then Open again. Needed once, because early versions aren’t signed yet.' },
+        { title: 'If macOS says the app “is damaged”', body: 'Open Terminal, run the command below, then open Dreamward again.' },
+      ],
+      command: 'xattr -cr /Applications/Dreamward.app',
+    },
+    linux: {
+      tab: 'Linux',
+      button: 'Download AppImage (any Linux)',
+      buttonDeb: 'Download .deb (Ubuntu, Debian)',
+      note: '64-bit (x86_64)',
+      steps: [
+        { title: 'AppImage: make it runnable', body: 'Right-click the file, open Properties and allow running it as a program. Or run the command below.' },
+        { title: 'Double-click to start', body: 'Dreamward opens. Updates install themselves.' },
+        { title: 'Prefer the .deb?', body: 'Run sudo apt install ./Dreamward-*.deb in the folder you downloaded it to.' },
+      ],
+      command: 'chmod +x Dreamward-*.AppImage',
+    },
+  },
+  builders: {
+    eyebrow: 'For builders',
+    title: 'Run it your way.',
+    cards: [
+      { title: 'Self-host', body: 'For you and the people you invite, on a home server or a small VPS. One command, automatic HTTPS, verified downloads.', link: 'Self-hosting guide' },
+      { title: 'Connect your agent', body: 'Claude Code or Desktop, Cursor, VS Code, Gemini CLI, Codex or OpenCode: one command connects it to your book over MCP.', link: 'Agent guide' },
+      { title: 'Open source', body: 'AGPL-3.0. Read every line, report issues, translate, or send a pull request.', link: 'Dreamward on GitHub' },
+    ],
+    copy: 'Copy',
+    copied: 'Copied',
+  },
+  faq: {
+    eyebrow: 'Questions',
+    title: 'Good questions, honest answers.',
+    items: [
+      { q: 'Is Dreamward free?', a: 'Yes. Free and open source (AGPL-3.0). No account, no subscription, no ads.' },
+      { q: 'Where is my data?', a: 'On your computer with the desktop app, or on your own server. There is no Dreamward cloud and no telemetry.' },
+      { q: 'Do I need AI?', a: 'No. The book, chapters, life wheel, IKIGAI, goals and journal all work without it. Clarity needs an AI provider you connect, a local model, or your own agent.' },
+      { q: 'Is there a phone app?', a: 'Not yet. The desktop app runs on Windows, Mac and Linux. A self-hosted Dreamward works in your phone’s browser.' },
+      { q: 'Is it a coaching program?', a: 'It’s a tool, not a program. The structure is a simple, open framework you can adapt, and Clarity helps you think rather than telling you what to do.' },
+      { q: 'Does it speak Hebrew?', a: 'Yes. The whole app works in English and Hebrew, right-to-left included.' },
+      { q: 'Why does my computer warn me when I install it?', a: 'Early versions aren’t code-signed yet, so Windows and macOS ask you to confirm once. The code is open, and every download has a published SHA-256 checksum.' },
+    ],
+  },
+  final: {
+    title: 'Your next step is small.',
+    titleB: 'Take it.',
+    cta: 'Download Dreamward',
+    sub: 'Free · Windows, Mac and Linux',
+  },
+  footer: {
+    tagline: 'Your dream, one step at a time.',
+    links: { github: 'GitHub', docs: 'Docs', releases: 'Releases', community: 'Community', security: 'Security', privacy: 'Privacy' },
+    license: 'Free and open source software, AGPL-3.0. Site text CC BY-SA 4.0.',
+  },
+  privacy: {
+    title: 'Privacy',
+    lede: 'Short version: this website collects nothing, and Dreamward keeps your book with you.',
+    sections: [
+      { title: 'This website', body: 'No cookies, no analytics, no trackers, and no third-party requests: fonts and images are served from this site. The only thing stored in your browser is your choice to hide the language suggestion. The site is hosted on GitHub Pages, which keeps standard server logs.' },
+      { title: 'The Dreamward app', body: 'The desktop app stores your book on your computer. A self-hosted Dreamward stores it on your server, with a separate database for every person. There is no Dreamward cloud and no telemetry.' },
+      { title: 'AI', body: 'Clarity talks only to the AI provider you connect, or a local model, and only when you use it. Your keys are encrypted and never leave your install, except in calls to the provider you chose.' },
+      { title: 'Updates', body: 'The desktop app checks GitHub Releases for new versions. That request contains no personal data.' },
+      { title: 'Security', body: 'Found a vulnerability? Please report it privately, as described in our security policy.' },
+    ],
+    securityLink: 'Security policy',
+    back: 'Back to Dreamward',
+  },
+  notFound: {
+    title: 'Lost among the stars.',
+    body: 'This page doesn’t exist. Let’s get you back on the path.',
+    cta: 'Back home',
+  },
+};
+
+export type Dict = typeof en;

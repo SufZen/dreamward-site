@@ -1,0 +1,10 @@
+---
+import Base from '../layouts/Base.astro';
+import Home from '../components/Home.astro';
+import { t } from '../i18n';
+import { softwareApp } from '../lib/jsonld';
+const d = t('en');
+---
+<Base lang="en" title={d.meta.title} description={d.meta.description} page="" jsonLd={softwareApp('en')}>
+  <Home lang="en" />
+</Base>

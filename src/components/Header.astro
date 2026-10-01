@@ -1,0 +1,24 @@
+---
+import Logo from './Logo.astro';
+import { t, home, url, type Lang } from '../i18n';
+
+interface Props { lang: Lang; page?: '' | 'privacy/' }
+const { lang, page } = Astro.props;
+const d = t(lang);
+const h = home(lang);
+const other = lang === 'he' ? 'en' : 'he';
+const otherHref = page !== undefined ? url((lang === 'he' ? '' : 'he/') + page) : url(lang === 'he' ? '' : 'he/');
+---
+<header class="site-header">
+  <div class="wrap bar">
+    <a class="logo" href={h} aria-label={d.a11y.home}><Logo /></a>
+    <nav aria-label={d.a11y.mainNav}>
+      <a class="hide-sm" href={`${h}#how`}>{d.nav.how}</a>
+      <a class="hide-sm" href={`${h}#inside`}>{d.nav.inside}</a>
+      <a class="hide-sm" href={`${h}#clarity`}>{d.nav.clarity}</a>
+      <a class="hide-sm" href={`${h}#yours`}>{d.nav.privacy}</a>
+      <a class="lang" href={otherHref} lang={other} hreflang={other} aria-label={d.nav.otherLangLabel}>{d.nav.otherLang}</a>
+      <a class="btn btn-primary cta" href={`${h}#download`}>{d.nav.download}</a>
+    </nav>
+  </div>
+</header>

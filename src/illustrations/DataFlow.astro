@@ -1,0 +1,47 @@
+---
+/* Where your book lives: on your computer. One optional line to the AI you
+   choose; the Dreamward cloud is crossed out because it doesn't exist. */
+import { starPath } from '../lib/geom';
+
+interface Props { rtl?: boolean; computer: string; book: string; ai: string; noCloud: string; label: string }
+const { rtl = false, computer, book, ai, noCloud, label } = Astro.props;
+const W = 480;
+const X = (x: number) => (rtl ? W - x : x);
+const lap = X(150);
+const aiX = X(392);
+---
+<svg viewBox={`0 0 ${W} 360`} role="img" aria-label={label} direction="ltr">
+  <defs>
+    <radialGradient id="df-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffcc00" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#ffcc00" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <!-- the cloud that isn't there -->
+  <g opacity="0.6">
+    <path d={`M${X(240) - 52} 92 a26 26 0 0 1 8 -50 a34 34 0 0 1 62 -8 a26 26 0 0 1 36 32 a20 20 0 0 1 -6 26 Z`} fill="none" stroke="#6e6e86" stroke-width="2" stroke-dasharray="5 6" />
+    <line x1={X(240) - 64} y1="104" x2={X(240) + 64} y2="22" stroke="#6e6e86" stroke-width="2.5" stroke-linecap="round" />
+  </g>
+  <text x={X(240)} y="128" text-anchor="middle" fill="#6e6e86" font-size="13">{noCloud}</text>
+
+  <!-- your computer, with your book inside -->
+  <circle cx={lap} cy="226" r="110" fill="url(#df-glow)" />
+  <rect x={lap - 92} y="168" width="184" height="118" rx="10" fill="#1a1a24" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" />
+  <path d={`M${lap - 112} 292 H${lap + 112} l-14 14 H${lap - 98} Z`} fill="#20202c" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" />
+  <g>
+    <path d={`M${lap - 40} 200 q20 -8 40 0 q20 -8 40 0 v58 q-20 -8 -40 0 q-20 -8 -40 0 Z`} fill="rgba(255,204,0,0.12)" stroke="#ffcc00" stroke-width="1.6" />
+    <line x1={lap} y1="200" x2={lap} y2="258" stroke="#ffcc00" stroke-width="1.6" />
+    <path d={starPath(lap + 20, 222, 7)} fill="#ffcc00" />
+  </g>
+  <text x={lap} y="278" text-anchor="middle" fill="#ececf1" font-size="12.5" font-weight="500">{book}</text>
+  <text x={lap} y="334" text-anchor="middle" fill="#a0a0b6" font-size="13">{computer}</text>
+
+  <!-- the only connection: your AI, if you want one -->
+  <path d={`M${X(258)} 226 C${X(300)} 226 ${X(320)} 226 ${aiX - (rtl ? -44 : 44)} 226`} fill="none" stroke="#ffcc00" stroke-opacity="0.7" stroke-width="2" stroke-dasharray="2 7" stroke-linecap="round" />
+  <circle cx={aiX} cy="226" r="40" fill="#12121a" stroke="#ffcc00" stroke-opacity="0.6" stroke-width="1.5" />
+  <path d={starPath(aiX, 226, 11)} fill="#ffcc00" opacity="0.9" />
+  <circle cx={aiX - 14} cy="212" r="2" fill="#ffcc00" />
+  <circle cx={aiX + 15} cy="241" r="2.5" fill="#ffcc00" />
+  <text x={aiX} y="290" text-anchor="middle" fill="#a0a0b6" font-size="13">{ai}</text>
+</svg>

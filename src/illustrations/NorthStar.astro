@@ -1,0 +1,17 @@
+---
+/* The glowing north star where the page's path arrives (final call to action, 404). */
+import { starPath } from '../lib/geom';
+
+interface Props { dim?: boolean; class?: string }
+const { dim = false, class: cls } = Astro.props;
+---
+<svg viewBox="0 0 120 120" aria-hidden="true" focusable="false" class={cls}>
+  <defs>
+    <radialGradient id="ns-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffcc00" stop-opacity={dim ? 0.2 : 0.5} />
+      <stop offset="100%" stop-color="#ffcc00" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+  <circle cx="60" cy="60" r="58" fill="url(#ns-glow)" class="pulse" />
+  <path d={starPath(60, 60, 34)} fill="#ffcc00" opacity={dim ? 0.45 : 1} class="glow-star" />
+</svg>

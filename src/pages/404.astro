@@ -1,0 +1,20 @@
+---
+/* One 404 for both languages (GitHub Pages serves /404.html everywhere):
+   English first, with the Hebrew line marked up as Hebrew. */
+import Base from '../layouts/Base.astro';
+import NorthStar from '../illustrations/NorthStar.astro';
+import { t, url } from '../i18n';
+const en = t('en');
+const he = t('he');
+---
+<Base lang="en" title={en.meta.notFoundTitle} description={en.notFound.body}>
+  <section class="lost">
+    <div class="wrap">
+      <NorthStar dim />
+      <h1>{en.notFound.title}</h1>
+      <p>{en.notFound.body}</p>
+      <a class="btn btn-primary" href={url('')}>{en.notFound.cta}</a>
+      <p lang="he" dir="rtl" style="margin-top:40px"><a href={url('he/')}>{he.notFound.cta} · {he.notFound.title}</a></p>
+    </div>
+  </section>
+</Base>

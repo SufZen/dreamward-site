@@ -1,0 +1,55 @@
+---
+/* "Dreams fade": the dream stays high and far, busy weeks drift away from it,
+   and a staircase of small steps climbs from daily life to the dream. Time runs
+   in the reading direction (mirrored on RTL pages; labels stay readable). */
+import { round, starPath } from '../lib/geom';
+
+interface Props { rtl?: boolean; dream: string; weeks: string; steps: string; label: string }
+const { rtl = false, dream, weeks, steps, label } = Astro.props;
+
+const W = 560;
+const H = 300;
+const X = (x: number) => (rtl ? W - x : x);
+const start = (rtl ? 'end' : 'start') as 'start' | 'end';
+const end = (rtl ? 'start' : 'end') as 'start' | 'end';
+
+// busy weeks: a jittery line that slowly sinks away from the dream
+const jitter = [0, -14, 9, -6, 16, -10, 12, -4, 18, -8, 14, -2, 20];
+const weekPts = jitter.map((j, i) => {
+  const x = 40 + i * 40;
+  const y = 170 + i * 5.5 + j;
+  return `${X(x)},${round(y)}`;
+});
+
+// small steps: a staircase from daily life up to the dream line
+const stairs: string[] = [`M${X(40)} 214`];
+let y = 214;
+for (let x = 40; x < 480; ) {
+  const nx = x + 44;
+  stairs.push(`H${X(nx)}`);
+  y = round(y - 14.4);
+  stairs.push(`V${y}`);
+  x = nx;
+}
+const stairEnd = X(480);
+---
+<svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={label} direction="ltr">
+  <!-- grid -->
+  <g stroke="rgba(255,255,255,0.05)">
+    {[70, 120, 170, 220, 270].map((gy) => <line x1="20" x2={W - 20} y1={gy} y2={gy} />)}
+  </g>
+
+  <!-- the dream -->
+  <line x1={X(40)} x2={X(500)} y1="70" y2="70" stroke="#ffcc00" stroke-opacity="0.55" stroke-width="1.5" stroke-dasharray="6 8" />
+  <path d={starPath(X(512), 70, 13)} fill="#ffcc00" class="glow-star" />
+  <text x={X(40)} y="54" text-anchor={start} fill="#ffcc00" font-size="14" font-weight="500">{dream}</text>
+
+  <!-- busy weeks -->
+  <polyline points={weekPts.join(' ')} fill="none" stroke="#a0a0b6" stroke-opacity="0.55" stroke-width="1.5" stroke-linejoin="round" />
+  <text x={X(520)} y="284" text-anchor={end} fill="#a0a0b6" font-size="13">{weeks}</text>
+
+  <!-- small steps -->
+  <path d={stairs.join(' ')} fill="none" stroke="#ffcc00" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" class="draw" style="--len:900" />
+  <circle cx={stairEnd} cy={y} r="5" fill="#ffcc00" class="pop" style="--d:2.2s" />
+  <text x={X(150)} y="236" text-anchor={start} fill="#ececf1" font-size="13" font-weight="500">{steps}</text>
+</svg>

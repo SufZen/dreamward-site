@@ -1,0 +1,22 @@
+---
+/* Clarity's avatar (same drawing as ClarityAvatar in @dreamward/design-system). */
+interface Props { size?: number }
+const { size = 30 } = Astro.props;
+---
+<svg viewBox="0 0 48 48" width={size} height={size} aria-hidden="true" focusable="false" class="clarity-avatar">
+  <defs>
+    <radialGradient id="ca-halo" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffcc00" stop-opacity="0.38" />
+      <stop offset="55%" stop-color="#ffcc00" stop-opacity="0.08" />
+      <stop offset="100%" stop-color="#ffcc00" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+  <circle cx="24" cy="24" r="24" fill="#0a0a0f" />
+  <circle cx="24" cy="24" r="20" fill="url(#ca-halo)" class="pulse" />
+  <circle cx="24" cy="24" r="13" fill="none" stroke="#ffcc00" stroke-opacity="0.85" stroke-width="1.2" />
+  <circle cx="11.6" cy="36.4" r="1.1" fill="#ffcc00" />
+  <circle cx="11.6" cy="11.6" r="1.35" fill="#ffcc00" />
+  <circle cx="36.4" cy="11.6" r="1.6" fill="#ffcc00" />
+  <circle cx="36.4" cy="36.4" r="1.85" fill="#ffcc00" />
+  <path d="M24 15.2 L25.2 22.8 L29.5 24 L25.2 25.2 L24 32.8 L22.8 25.2 L18.5 24 L22.8 22.8 Z" fill="#ffcc00" />
+</svg>

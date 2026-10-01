@@ -1,0 +1,17 @@
+---
+/* A Lucide icon (ISC), inlined as SVG. Decorative unless `label` is given. */
+import * as icons from 'lucide-static';
+
+interface Props {
+  name: keyof typeof icons;
+  label?: string;
+  class?: string;
+}
+const { name, label, class: cls } = Astro.props;
+const raw = String(icons[name] ?? '');
+const svg = raw
+  .replace(/\s(width|height)="24"/g, '')
+  .replace('<svg', label ? `<svg role="img" aria-label="${label}"${cls ? ` class="${cls}"` : ''}` : `<svg aria-hidden="true" focusable="false"${cls ? ` class="${cls}"` : ''}`)
+  .replace(/class="lucide[^"]*"/, '');
+---
+<Fragment set:html={svg} />

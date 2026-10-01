@@ -1,0 +1,38 @@
+---
+/* The life wheel: twelve areas rated 1–10. Today's shape (solid gold) grows
+   toward the vision (dashed) when the chart scrolls into view (site.js starts
+   the <animate>; reduced motion keeps it still). */
+import { polar, round } from '../lib/geom';
+
+interface Props { areas: string[]; label: string }
+const { areas, label } = Astro.props;
+
+const C = 200;
+const R = 128;
+const today = [6, 5, 7, 6, 4, 7, 8, 6, 3, 5, 4, 6];
+const later = [7, 6, 8, 7, 6, 8, 8, 7, 5, 7, 5, 8];
+const vision = [9, 8, 9, 8, 9, 9, 9, 8, 8, 9, 8, 9];
+const shape = (vals: number[]) => vals.map((v, i) => polar(C, C, (R * v) / 10, i * 30).join(',')).join(' ');
+const labels = areas.map((name, i) => {
+  const [x, y] = polar(C, C, R + 24, i * 30);
+  const a = i * 30;
+  const anchor = a === 0 || a === 180 ? 'middle' : a < 180 ? 'start' : 'end';
+  return { name, x, y: round(y + 4), anchor };
+});
+---
+<svg viewBox="-40 -10 480 420" role="img" aria-label={label} class="wheel" direction="ltr">
+  <g stroke="rgba(255,255,255,0.07)" fill="none">
+    {[2, 4, 6, 8, 10].map((v) => <circle cx={C} cy={C} r={(R * v) / 10} />)}
+    {areas.map((_, i) => {
+      const [x, y] = polar(C, C, R, i * 30);
+      return <line x1={C} y1={C} x2={x} y2={y} />;
+    })}
+  </g>
+  <polygon points={shape(vision)} fill="none" stroke="#ffcc00" stroke-opacity="0.75" stroke-width="1.5" stroke-dasharray="5 6" />
+  <polygon points={shape(today)} fill="rgba(255,204,0,0.16)" stroke="#ffcc00" stroke-width="2" stroke-linejoin="round">
+    <animate attributeName="points" to={shape(later)} dur="1.8s" begin="indefinite" fill="freeze" calcMode="spline" keySplines="0.22 1 0.36 1" keyTimes="0;1" />
+  </polygon>
+  {labels.map((l) => (
+    <text x={l.x} y={l.y} text-anchor={l.anchor} fill="#a0a0b6" font-size="13">{l.name}</text>
+  ))}
+</svg>

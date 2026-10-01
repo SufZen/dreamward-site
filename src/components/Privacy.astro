@@ -1,0 +1,21 @@
+---
+import Icon from './Icon.astro';
+import { t, home, type Lang } from '../i18n';
+import { LINKS } from '../lib/links';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const d = t(lang).privacy;
+---
+<article class="page">
+  <div class="wrap">
+    <h1>{d.title}</h1>
+    <p class="lede">{d.lede}</p>
+    {d.sections.map((s, i) => (
+      <section>
+        <h2>{s.title}</h2>
+        <p>{s.body}{i === d.sections.length - 1 && <> <a href={LINKS.security}>{d.securityLink}</a>.</>}</p>
+      </section>
+    ))}
+    <a class="btn btn-secondary back" href={home(lang)}><Icon name={lang === 'he' ? 'ArrowRight' : 'ArrowLeft'} />{d.back}</a>
+  </div>
+</article>

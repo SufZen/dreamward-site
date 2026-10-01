@@ -1,0 +1,61 @@
+---
+/* The three moves in the name: Dream (the whole life, twelve areas around a
+   star), Ward (a compass choosing a direction: five areas lit), Step (a short
+   staircase to the star, with a progress ring). */
+import { polar, round, starPath } from '../lib/geom';
+
+interface Props { kind: 'dream' | 'ward' | 'step'; rtl?: boolean }
+const { kind, rtl = false } = Astro.props;
+
+const C = [100, 64] as const;
+const areas = Array.from({ length: 12 }, (_, i) => polar(C[0], C[1], 46, i * 30));
+const focus = new Set([0, 2, 5, 7, 9]);
+
+// compass ticks + lit arcs
+const ticks = Array.from({ length: 12 }, (_, i) => [polar(C[0], C[1], 40, i * 30 + 15), polar(C[0], C[1], 48, i * 30 + 15)] as const);
+const arc = (a0: number, a1: number, r: number) => {
+  const [x0, y0] = polar(C[0], C[1], r, a0);
+  const [x1, y1] = polar(C[0], C[1], r, a1);
+  return `M${x0} ${y0} A${r} ${r} 0 0 1 ${x1} ${y1}`;
+};
+
+// step: staircase to a star, with a progress ring around the star
+const stairs = [0, 1, 2, 3, 4].map((i) => ({ x: 36 + i * 22, y: 104 - i * 14, r: round(2.6 + i * 0.7) }));
+const flip = rtl ? 'translate(200 0) scale(-1 1)' : undefined;
+---
+<svg viewBox="0 0 200 128" aria-hidden="true" focusable="false">
+  {kind === 'dream' && (
+    <g>
+      <circle cx={C[0]} cy={C[1]} r="46" fill="none" stroke="rgba(255,255,255,0.08)" />
+      <circle cx={C[0]} cy={C[1]} r="28" fill="rgba(255,204,0,0.06)" />
+      {areas.map(([x, y], i) => (
+        <circle cx={x} cy={y} r="4.2" fill="#ffcc00" opacity={0.35 + (i % 3) * 0.22} class="pop" style={`--d:${round(i * 0.06)}s`} />
+      ))}
+      <path d={starPath(C[0], C[1], 15)} fill="#ffcc00" class="glow-star" />
+    </g>
+  )}
+  {kind === 'ward' && (
+    <g transform={flip}>
+      <circle cx={C[0]} cy={C[1]} r="52" fill="none" stroke="rgba(255,255,255,0.08)" />
+      {ticks.map(([[x0, y0], [x1, y1]]) => <line x1={x0} y1={y0} x2={x1} y2={y1} stroke="rgba(255,255,255,0.18)" />)}
+      {[...focus].map((i) => (
+        <path d={arc(i * 30 - 12, i * 30 + 12, 44)} fill="none" stroke="#ffcc00" stroke-width="5" stroke-linecap="round" class="pop" style={`--d:${round(i * 0.05)}s`} />
+      ))}
+      <g class="pop" style="--d:0.6s">
+        <path d={`M${C[0]} ${C[1]} L${polar(C[0], C[1], 32, 40).join(' ')}`} stroke="#ffcc00" stroke-width="2.5" stroke-linecap="round" />
+        <path d={`M${C[0]} ${C[1]} L${polar(C[0], C[1], 18, 220).join(' ')}`} stroke="#6e6e86" stroke-width="2.5" stroke-linecap="round" />
+        <circle cx={C[0]} cy={C[1]} r="4" fill="#ececf1" />
+      </g>
+      <path d={starPath(...polar(C[0], C[1], 66, 40), 7)} fill="#ffcc00" class="glow-star" />
+    </g>
+  )}
+  {kind === 'step' && (
+    <g transform={flip}>
+      <path d={`M24 112 ${stairs.map((s) => `H${s.x + 11} V${s.y - 7}`).join(' ')}`} fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" />
+      {stairs.map((s, i) => <circle cx={s.x} cy={s.y} r={s.r} fill="#ffcc00" class="pop" style={`--d:${round(i * 0.15)}s`} />)}
+      <circle cx="160" cy="34" r="20" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="4" />
+      <path d={`M160 14 A20 20 0 1 1 ${polar(160, 34, 20, 234).join(' ')}`} fill="none" stroke="#ffcc00" stroke-width="4" stroke-linecap="round" class="draw" style="--len:90" />
+      <path d={starPath(160, 34, 9)} fill="#ffcc00" class="glow-star" />
+    </g>
+  )}
+</svg>

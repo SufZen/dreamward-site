@@ -1,0 +1,27 @@
+---
+import Logo from './Logo.astro';
+import { t, home, url, type Lang } from '../i18n';
+import { LINKS } from '../lib/links';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const d = t(lang);
+const f = d.footer.links;
+---
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="brand">
+      <a class="logo" href={home(lang)} aria-label={d.a11y.home}><Logo height={26} /></a>
+      <span>{d.footer.tagline}</span>
+    </div>
+    <nav aria-label={d.a11y.footerNav}>
+      <a href={LINKS.github}>{f.github}</a>
+      <a href={LINKS.docs}>{f.docs}</a>
+      <a href={LINKS.releases}>{f.releases}</a>
+      <a href={LINKS.community}>{f.community}</a>
+      <a href={LINKS.security}>{f.security}</a>
+      <a href={url((lang === 'he' ? 'he/' : '') + 'privacy/')}>{f.privacy}</a>
+    </nav>
+    <p class="legal">{d.footer.license}</p>
+  </div>
+</footer>

@@ -1,0 +1,315 @@
+---
+/* The home page, in either language. Copy lives in src/i18n; this file is layout. */
+import Eyebrow from './Eyebrow.astro';
+import Icon from './Icon.astro';
+import HeroScene from '../illustrations/HeroScene.astro';
+import FadeChart from '../illustrations/FadeChart.astro';
+import WayArt from '../illustrations/WayArt.astro';
+import LifeWheel from '../illustrations/LifeWheel.astro';
+import IkigaiVenn from '../illustrations/IkigaiVenn.astro';
+import Mini from '../illustrations/Mini.astro';
+import DataFlow from '../illustrations/DataFlow.astro';
+import ClarityAvatar from '../illustrations/ClarityAvatar.astro';
+import NorthStar from '../illustrations/NorthStar.astro';
+import { t, type Lang } from '../i18n';
+import { LINKS } from '../lib/links';
+import release from '../data/release.json';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const d = t(lang);
+const rtl = lang === 'he';
+const dl = release.downloads;
+const sha = release.sha256 as Record<string, string | undefined>;
+const version = release.version ? `v${release.version}` : '';
+const wayKinds = ['dream', 'ward', 'step'] as const;
+const featureIcons = { chapter: 'CalendarRange', goals: 'TrendingUp', journal: 'NotebookPen', boards: 'Image' } as const;
+const clarityIcons = ['KeyRound', 'Bot', 'ShieldCheck'] as const;
+const yoursIcons = ['HardDrive', 'ShieldCheck', 'Download', 'Code'] as const;
+const weekIcons = ['Sunrise', 'PenLine', 'BellRing', 'RotateCcw'] as const;
+const builderIcons = ['Server', 'Terminal', 'Code'] as const;
+const builderLinks = [LINKS.selfHost, LINKS.agents, LINKS.github];
+const builderCmds = ['curl -fsSL https://dreamward.life/install.sh | sudo bash', 'npx dreamward setup', ''];
+const providers = ['OpenAI', 'Anthropic', 'Gemini', 'OpenRouter', 'Mistral', 'Groq', 'DeepSeek', 'Ollama', 'LM Studio'];
+---
+<div class="trail" aria-hidden="true"></div>
+
+<!-- 1 · Hero -->
+<section class="hero" aria-labelledby="hero-title">
+  <div class="wrap">
+    <div>
+      <Eyebrow step={0} text={d.hero.eyebrow} />
+      <h1 id="hero-title" style="margin-top:18px">{d.hero.titleA}<span class="b">{d.hero.titleB}</span></h1>
+      <p class="lede">{d.hero.lede}</p>
+      <div class="ctas">
+        <a class="btn btn-primary" id="hero-download" href="#download" data-label-win={d.hero.downloadFor.win} data-label-mac={d.hero.downloadFor.mac} data-label-linux={d.hero.downloadFor.linux}>
+          <Icon name="Download" /><span>{d.hero.download}</span>
+        </a>
+        <a class="btn btn-secondary" href="#how">{d.hero.how}</a>
+      </div>
+      <ul class="trust">
+        {d.hero.trust.map((x) => <li><Icon name="Check" />{x}</li>)}
+      </ul>
+      <p class="more"><a href="#download">{d.hero.allDownloads}</a></p>
+    </div>
+    <div class="hero-art"><HeroScene rtl={rtl} /></div>
+  </div>
+</section>
+
+<!-- 2 · Why dreams fade -->
+<section class="section" aria-labelledby="fade-title">
+  <div class="wrap fade-grid">
+    <div class="head reveal">
+      <Eyebrow step={1} text={d.fade.eyebrow} />
+      <h2 id="fade-title">{d.fade.title}</h2>
+      <p>{d.fade.body}</p>
+      <p class="punch">{d.fade.punch}</p>
+    </div>
+    <div class="chart-card reveal">
+      <FadeChart rtl={rtl} dream={d.fade.chart.dream} weeks={d.fade.chart.weeks} steps={d.fade.chart.steps} label={d.fade.chart.label} />
+    </div>
+  </div>
+</section>
+
+<!-- 3 · The way: Dream. Ward. Step. -->
+<section class="section" id="how" aria-labelledby="way-title">
+  <div class="wrap">
+    <div class="head reveal">
+      <Eyebrow step={2} text={d.way.eyebrow} />
+      <h2 id="way-title">{d.way.title}</h2>
+      <p>{d.way.intro}</p>
+    </div>
+    <div class="way">
+      {d.way.items.map((item, i) => (
+        <article class="way-card reveal">
+          <div class="art"><WayArt kind={wayKinds[i]} rtl={rtl} /></div>
+          <span class="num" aria-hidden="true">0{i + 1}</span>
+          <div class="body">
+            <p class="word">{item.word}</p>
+            <h3>{item.title}</h3>
+            <p>{item.body}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- 4 · Inside your book -->
+<section class="section" id="inside" aria-labelledby="inside-title">
+  <div class="wrap">
+    <div class="head reveal">
+      <Eyebrow step={3} text={d.inside.eyebrow} />
+      <h2 id="inside-title">{d.inside.title}</h2>
+    </div>
+    <div class="inside-top">
+      <article class="viz reveal" data-wheel>
+        <h3><Icon name="Target" />{d.inside.wheel.title}</h3>
+        <p>{d.inside.wheel.body}</p>
+        <div class="figure"><LifeWheel areas={d.inside.wheel.areas} label={d.inside.wheel.label} /></div>
+        <div class="legend"><span><i></i>{d.inside.wheel.today}</span><span><i class="dash"></i>{d.inside.wheel.vision}</span></div>
+      </article>
+      <article class="viz reveal">
+        <h3><Icon name="Sparkles" />{d.inside.ikigai.title}</h3>
+        <p>{d.inside.ikigai.body}</p>
+        <div class="figure">
+          <IkigaiVenn love={d.inside.ikigai.love} good={d.inside.ikigai.good} needs={d.inside.ikigai.needs} paid={d.inside.ikigai.paid} center={d.inside.ikigai.center} label={d.inside.ikigai.label} />
+        </div>
+      </article>
+    </div>
+    <div class="features">
+      {d.inside.features.map((f) => (
+        <article class="feature reveal">
+          <div class="icon"><Icon name={featureIcons[f.icon as keyof typeof featureIcons]} /></div>
+          <h3>{f.title}</h3>
+          <p>{f.body}</p>
+          <div class="mini"><Mini kind={f.icon as 'chapter' | 'goals' | 'journal' | 'boards'} now={d.inside.chapterNow} risk={d.inside.momentum} rtl={rtl} /></div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- 5 · Clarity -->
+<section class="section" id="clarity" aria-labelledby="clarity-title">
+  <div class="wrap clarity-grid">
+    <div class="reveal">
+      <div class="head">
+        <Eyebrow step={4} text={d.clarity.eyebrow} />
+        <h2 id="clarity-title">{d.clarity.title}</h2>
+        <p>{d.clarity.body}</p>
+      </div>
+      <ul class="points">
+        {d.clarity.points.map((p, i) => (
+          <li><span class="icon"><Icon name={clarityIcons[i]!} /></span><p><b>{p.title}</b><span>{p.body}</span></p></li>
+        ))}
+      </ul>
+      <div class="providers" aria-label="AI providers">{providers.map((p) => <span class="chip">{p}</span>)}</div>
+    </div>
+    <figure class="chat reveal" aria-label={d.clarity.chatLabel} style="margin:0">
+      <div class="chat-head"><ClarityAvatar size={30} /><span>Clarity</span><small aria-hidden="true">08:02</small></div>
+      <p class="msg user"><span class="sr-only">{d.clarity.you}: </span>{d.clarity.userMsg}</p>
+      <div class="msg ai">
+        <ClarityAvatar size={30} />
+        <div>
+          <p class="bubble"><span class="sr-only">Clarity: </span>{d.clarity.clarityMsg}</p>
+          <div class="proposal">
+            <span class="kind">{d.clarity.proposalKind}</span>
+            <span class="what">{d.clarity.proposal}</span>
+            <div class="actions" aria-hidden="true"><span class="ok">{d.clarity.approve}</span><span>{d.clarity.edit}</span></div>
+          </div>
+        </div>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<!-- 6 · Yours -->
+<section class="section" id="yours" aria-labelledby="yours-title">
+  <div class="wrap yours-grid">
+    <div class="reveal">
+      <div class="head">
+        <Eyebrow step={5} text={d.yours.eyebrow} />
+        <h2 id="yours-title">{d.yours.title}</h2>
+        <p>{d.yours.body}</p>
+      </div>
+      <div class="yours-points">
+        {d.yours.points.map((p, i) => (
+          <div><b><Icon name={yoursIcons[i]!} />{p.title}</b><span>{p.body}</span></div>
+        ))}
+      </div>
+    </div>
+    <div class="diagram reveal">
+      <DataFlow rtl={rtl} computer={d.yours.diagram.computer} book={d.yours.diagram.book} ai={d.yours.diagram.ai} noCloud={d.yours.diagram.noCloud} label={d.yours.diagram.label} />
+    </div>
+  </div>
+</section>
+
+<!-- 7 · A week -->
+<section class="section" aria-labelledby="week-title">
+  <div class="wrap">
+    <div class="head center reveal">
+      <Eyebrow step={6} text={d.week.eyebrow} />
+      <h2 id="week-title">{d.week.title}</h2>
+    </div>
+    <ol class="week reveal">
+      {d.week.days.map((w, i) => (
+        <li>
+          <span class="node"><Icon name={weekIcons[i]!} /></span>
+          <span class="day">{w.day}</span>
+          <h3>{w.title}</h3>
+          <p>{w.body}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<!-- 8 · Download -->
+<section class="section" id="download" aria-labelledby="download-title">
+  <div class="wrap">
+    <div class="head reveal">
+      <Eyebrow step={7} text={`${d.download.eyebrow}${version ? ` · ${version}` : ''}`} />
+      <h2 id="download-title">{d.download.title}</h2>
+      <p>{d.download.lede}</p>
+    </div>
+    <div class="mobile-note">
+      <p>{d.download.mobile}</p>
+      <button type="button" class="btn btn-ghost" data-share hidden><Icon name="Share2" />{d.download.share}</button>
+    </div>
+    <div class="tabs" role="tablist" aria-label={d.download.tabsLabel}>
+      <button class="tab" role="tab" id="tab-win" aria-controls="panel-win" aria-selected="true" data-os="win">{d.download.win.tab}</button>
+      <button class="tab" role="tab" id="tab-mac" aria-controls="panel-mac" aria-selected="false" data-os="mac" tabindex="-1">{d.download.mac.tab}</button>
+      <button class="tab" role="tab" id="tab-linux" aria-controls="panel-linux" aria-selected="false" data-os="linux" tabindex="-1">{d.download.linux.tab}</button>
+    </div>
+
+    <div class="panel" id="panel-win" role="tabpanel" aria-labelledby="tab-win">
+      <div class="dl">
+        <a class="btn btn-primary" href={dl.win} data-download="win"><Icon name="Download" />{d.download.win.button}</a>
+        <small>{d.download.win.note}</small>
+        {sha.win && <p class="sum"><b>{d.download.checksum}</b> {sha.win}</p>}
+      </div>
+      <ol class="install">{d.download.win.steps.map((s) => <li><b>{s.title}</b>{s.body}</li>)}</ol>
+    </div>
+
+    <div class="panel" id="panel-mac" role="tabpanel" aria-labelledby="tab-mac" hidden>
+      <div class="dl">
+        <a class="btn btn-primary" href={dl.macArm} data-download="mac-arm"><Icon name="Download" />{d.download.mac.button}</a>
+        {sha.macArm && <p class="sum"><b>{d.download.checksum}</b> {sha.macArm}</p>}
+        <a class="btn btn-secondary" href={dl.macIntel} data-download="mac-intel"><Icon name="Download" />{d.download.mac.buttonIntel}</a>
+        {sha.macIntel && <p class="sum"><b>{d.download.checksum}</b> {sha.macIntel}</p>}
+        <p class="hint">{d.download.mac.hint}</p>
+      </div>
+      <ol class="install">
+        {d.download.mac.steps.map((s, i) => (
+          <li><b>{s.title}</b>{s.body}{i === 2 && <><br /><code>{d.download.mac.command}</code></>}</li>
+        ))}
+      </ol>
+    </div>
+
+    <div class="panel" id="panel-linux" role="tabpanel" aria-labelledby="tab-linux" hidden>
+      <div class="dl">
+        <a class="btn btn-primary" href={dl.appImage} data-download="linux"><Icon name="Download" />{d.download.linux.button}</a>
+        {sha.appImage && <p class="sum"><b>{d.download.checksum}</b> {sha.appImage}</p>}
+        <a class="btn btn-secondary" href={dl.deb} data-download="deb"><Icon name="Download" />{d.download.linux.buttonDeb}</a>
+        {sha.deb && <p class="sum"><b>{d.download.checksum}</b> {sha.deb}</p>}
+        <small>{d.download.linux.note}</small>
+      </div>
+      <ol class="install">
+        {d.download.linux.steps.map((s, i) => (
+          <li><b>{s.title}</b>{s.body}{i === 0 && <><br /><code>{d.download.linux.command}</code></>}</li>
+        ))}
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- 9 · For builders -->
+<section class="section" aria-labelledby="builders-title">
+  <div class="wrap">
+    <div class="head reveal">
+      <Eyebrow step={8} text={d.builders.eyebrow} />
+      <h2 id="builders-title">{d.builders.title}</h2>
+    </div>
+    <div class="builders">
+      {d.builders.cards.map((c, i) => (
+        <article class="card reveal">
+          <div class="icon"><Icon name={builderIcons[i]!} /></div>
+          <h3>{c.title}</h3>
+          <p>{c.body}</p>
+          {builderCmds[i] ? (
+            <div class="code push"><code>{builderCmds[i]}</code><button class="copy" type="button" data-copy={builderCmds[i]} data-copied={d.builders.copied}>{d.builders.copy}</button></div>
+          ) : (
+            <div class="push"></div>
+          )}
+          <a class="link" href={builderLinks[i]}>{c.link}</a>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- 10 · FAQ -->
+<section class="section" aria-labelledby="faq-title">
+  <div class="wrap">
+    <div class="head center reveal">
+      <Eyebrow step={9} text={d.faq.eyebrow} />
+      <h2 id="faq-title">{d.faq.title}</h2>
+    </div>
+    <div class="faq">
+      {d.faq.items.map((q) => (
+        <details><summary>{q.q}</summary><p class="a">{q.a}</p></details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- 11 · The last step -->
+<section class="section final" aria-labelledby="final-title">
+  <div class="wrap reveal">
+    <NorthStar class="star" />
+    <h2 id="final-title">{d.final.title}<span class="b">{d.final.titleB}</span></h2>
+    <a class="btn btn-primary" href="#download" data-final-download><Icon name="Download" />{d.final.cta}</a>
+    <small>{d.final.sub}</small>
+  </div>
+</section>

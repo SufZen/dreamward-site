@@ -1,0 +1,44 @@
+---
+/* Small sketches at the foot of the feature cards. */
+import { round, starPath } from '../lib/geom';
+
+interface Props { kind: 'chapter' | 'goals' | 'journal' | 'boards'; now?: string; risk?: string; rtl?: boolean }
+const { kind, now = '', risk = '', rtl = false } = Astro.props;
+const flip = rtl ? 'translate(240 0) scale(-1 1)' : undefined;
+const X = (x: number) => (rtl ? 240 - x : x);
+const bars = [10, 14, 13, 18, 21, 24, 27, 22, 17];
+---
+<svg viewBox="0 0 240 44" aria-hidden="true" focusable="false" direction="ltr">
+  {kind === 'chapter' && (
+    <g>
+      <line x1="4" x2="236" y1="22" y2="22" stroke="rgba(255,255,255,0.12)" stroke-width="2" />
+      {[20, 64, 108].map((x) => <rect x={X(x) - (rtl ? 34 : 0)} y="16" width="34" height="12" rx="6" fill="rgba(255,255,255,0.12)" />)}
+      <rect x={X(156) - (rtl ? 64 : 0)} y="12" width="64" height="20" rx="10" fill="#ffcc00" />
+      <text x={X(188)} y="26.5" text-anchor="middle" fill="#0a0a0f" font-size="11" font-weight="600">{now}</text>
+    </g>
+  )}
+  {kind === 'goals' && (
+    <g>
+      <g transform={flip}>
+        {bars.map((h, i) => (
+          <rect x={6 + i * 20} y={40 - h} width="12" height={h} rx="3" fill={i >= 7 ? '#a0a0b6' : '#ffcc00'} opacity={i >= 7 ? 0.5 : round(0.35 + i * 0.08)} />
+        ))}
+      </g>
+      <rect x={X(190) - (rtl ? 0 : 46)} y="4" width="46" height="16" rx="8" fill="rgba(255,204,0,0.12)" stroke="rgba(255,204,0,0.4)" />
+      <text x={X(190) + (rtl ? 23 : -23)} y="15.5" text-anchor="middle" fill="#ffcc00" font-size="9.5" font-weight="600">{risk}</text>
+    </g>
+  )}
+  {kind === 'journal' && (
+    <g transform={flip}>
+      {[0, 1, 2].map((i) => <rect x="6" y={8 + i * 12} width={[150, 190, 120][i]} height="4" rx="2" fill="rgba(255,255,255,0.14)" />)}
+      <path d={starPath(214, 22, 10)} fill="#ffcc00" class="glow-star" />
+    </g>
+  )}
+  {kind === 'boards' && (
+    <g transform={flip}>
+      {[0, 1, 2, 3, 4].map((i) => (
+        <rect x={6 + i * 46} y={i % 2 ? 10 : 4} width="40" height={i % 2 ? 30 : 36} rx="6" fill={i === 2 ? 'rgba(255,204,0,0.85)' : 'rgba(255,255,255,0.1)'} />
+      ))}
+    </g>
+  )}
+</svg>
