@@ -7,4 +7,7 @@ export const LINKS = {
   security: `${REPO}/blob/main/SECURITY.md`,
   selfHost: `${REPO}/blob/main/docs/self-hosting.md`,
   agents: `${REPO}/blob/main/docs/agent-access.md`,
+  realization: 'https://realization.world',
+  caseStudy: 'https://realization.world/work/dreamward',
+  intro: 'https://schedule.realization.co.il/30-minute-intro-meeting-asaf',
 };
