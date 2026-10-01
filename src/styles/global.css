@@ -59,7 +59,8 @@ p { margin: 0; }
 .bar nav a:hover { color: var(--mist); }
 .bar .lang { font-size: 13px; color: var(--mist); border: 1px solid var(--line-strong); border-radius: 999px; padding: 5px 12px; }
 .bar .lang:hover { border-color: var(--gold-line); }
-.bar .cta { height: 38px; padding: 0 16px; font-size: 14px; }
+.bar nav a.cta { height: 38px; padding: 0 16px; font-size: 14px; color: var(--ink); }
+.bar nav a.cta:hover { color: var(--ink); }
 @media (max-width: 880px) { .bar nav .hide-sm { display: none; } }
 @media (max-width: 420px) { .bar .cta { display: none; } }
 
@@ -216,7 +217,7 @@ main { position: relative; }
 .week p { margin-top: 6px; color: var(--muted); font-size: 15px; }
 @media (max-width: 760px) {
   .week { grid-template-columns: 1fr; gap: 26px; }
-  .week::before { inset-inline: auto; inset-inline-start: 27px; top: 0; bottom: 0; width: 2px; height: auto; background-size: 2px 12px; }
+  .week::before { inset-inline: auto; inset-inline-start: 27px; top: 28px; bottom: 90px; width: 2px; height: auto; background-size: 2px 12px; }
   .week li { display: grid; grid-template-columns: 56px 1fr; gap: 0 18px; text-align: start; padding: 0; }
   .week .node { margin: 0; grid-row: span 3; }
 }
