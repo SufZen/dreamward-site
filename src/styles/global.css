@@ -13,7 +13,7 @@
   --line-strong: rgba(255, 255, 255, 0.15);
   --mist: #ececf1;
   --muted: #a0a0b6;
-  --faint: #6e6e86;
+  --faint: #8e8ea4; /* ≥ 5:1 on every surface here (AA for text) */
   --gold: #ffcc00;
   --gold-strong: #ffd633;
   --gold-soft: rgba(255, 204, 0, 0.1);
@@ -24,7 +24,20 @@
   --mono: 'JetBrains Mono', ui-monospace, Consolas, monospace;
   --wrap: 1140px;
   --radius: 16px;
-  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  /* Motion, from the app's design system: a small duration scale, one standard curve,
+     and springs (linear()) that move transforms only; opacity and colour never overshoot. */
+  --dur-fast: 120ms;
+  --dur: 200ms;
+  --dur-moderate: 280ms;
+  --dur-slow: 450ms;
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+  --ease-enter: cubic-bezier(0, 0, 0.3, 1);
+  --spring-snappy: linear(0, 0.05, 0.161, 0.296, 0.431, 0.554, 0.66, 0.747, 0.816, 0.869, 0.909, 0.939, 0.96, 0.975, 0.985, 0.992, 0.996, 0.999, 1, 1.001, 1.001, 1.002, 1.001, 1.001, 1);
+  --spring-snappy-dur: 320ms;
+  --spring: linear(0, 0.052, 0.17, 0.316, 0.464, 0.598, 0.712, 0.804, 0.875, 0.927, 0.964, 0.988, 1.003, 1.011, 1.014, 1.015, 1.014, 1.012, 1.01, 1.008, 1.006, 1.004, 1.003, 1.002, 1);
+  --spring-dur: 430ms;
+  --spring-gentle: linear(0, 0.058, 0.18, 0.321, 0.455, 0.573, 0.671, 0.75, 0.812, 0.86, 0.897, 0.924, 0.945, 0.96, 0.971, 0.979, 0.985, 0.989, 0.992, 0.994, 0.996, 0.997, 0.998, 0.999, 1);
+  --spring-gentle-dur: 650ms;
 }
 
 * { box-sizing: border-box; }
@@ -55,7 +68,7 @@ p { margin: 0; }
 .bar { display: flex; align-items: center; gap: 24px; height: 66px; }
 .bar .logo { display: flex; color: var(--mist); flex: none; }
 .bar nav { margin-inline-start: auto; display: flex; align-items: center; gap: 22px; font-size: 14px; }
-.bar nav a { text-decoration: none; color: var(--muted); transition: color 160ms; }
+.bar nav a { text-decoration: none; color: var(--muted); transition: color var(--dur-fast) var(--ease); }
 .bar nav a:hover { color: var(--mist); }
 .bar .lang { font-size: 13px; color: var(--mist); border: 1px solid var(--line-strong); border-radius: 999px; padding: 5px 12px; }
 .bar .lang:hover { border-color: var(--gold-line); }
@@ -72,7 +85,7 @@ p { margin: 0; }
 .lang-hint button { margin-inline-start: auto; background: none; border: 0; color: var(--muted); font-size: 20px; line-height: 1; cursor: pointer; padding: 4px 8px; }
 
 /* ── Buttons ────────────────────────────────────────────────────────────── */
-.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; height: 50px; padding: 0 22px; border-radius: 12px; font: 500 15px/1 inherit; font-family: inherit; text-decoration: none; border: 1px solid transparent; cursor: pointer; transition: background 160ms, box-shadow 200ms, border-color 160ms, transform 160ms var(--ease); }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; height: 50px; padding: 0 22px; border-radius: 12px; font: 500 15px/1 inherit; font-family: inherit; text-decoration: none; border: 1px solid transparent; cursor: pointer; transition: background var(--dur-fast) var(--ease), box-shadow var(--dur) var(--ease), border-color var(--dur-fast) var(--ease), transform var(--spring-snappy-dur) var(--spring-snappy); }
 .btn svg { width: 18px; height: 18px; flex: none; }
 .btn-primary { background: var(--gold); color: var(--ink); }
 .btn-primary:hover { background: var(--gold-strong); box-shadow: var(--glow); transform: translateY(-1px); }
@@ -152,7 +165,7 @@ main { position: relative; }
 .legend span { display: inline-flex; align-items: center; gap: 8px; }
 .legend i { width: 18px; height: 0; border-top: 2px solid var(--gold); }
 .legend i.dash { border-top-style: dashed; opacity: 0.8; }
-.features { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; margin-top: 20px; }
+.features { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin-top: 20px; }
 .feature { background: var(--raised); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; display: flex; flex-direction: column; gap: 10px; }
 .feature .icon { width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center; background: var(--gold-soft); border: 1px solid var(--gold-line); color: var(--gold); }
 .feature .icon svg { width: 20px; height: 20px; }
@@ -266,7 +279,7 @@ main { position: relative; }
 .faq details { background: var(--raised); border: 1px solid var(--line); border-radius: 14px; }
 .faq summary { list-style: none; cursor: pointer; padding: 18px 22px; display: flex; align-items: center; gap: 14px; font-weight: 500; font-size: 17px; }
 .faq summary::-webkit-details-marker { display: none; }
-.faq summary::after { content: ''; margin-inline-start: auto; width: 10px; height: 10px; border-inline-end: 2px solid var(--muted); border-block-end: 2px solid var(--muted); transform: rotate(45deg); transition: transform 200ms var(--ease); flex: none; }
+.faq summary::after { content: ''; margin-inline-start: auto; width: 10px; height: 10px; border-inline-end: 2px solid var(--muted); border-block-end: 2px solid var(--muted); transform: rotate(45deg); transition: transform var(--spring-dur) var(--spring); flex: none; }
 .faq details[open] summary::after { transform: rotate(-135deg); }
 .faq details[open] { border-color: var(--gold-line); }
 .faq .a { padding: 0 22px 20px; color: var(--muted); }
@@ -327,7 +340,7 @@ main { position: relative; }
 .lost .btn { margin-top: 32px; }
 
 /* ── Motion ─────────────────────────────────────────────────────────────── */
-.js .reveal { opacity: 0; transform: translateY(18px); transition: opacity 700ms var(--ease), transform 700ms var(--ease); }
+.js .reveal { opacity: 0; transform: translateY(18px); transition: opacity var(--dur-slow) var(--ease-enter), transform var(--spring-gentle-dur) var(--spring-gentle); }
 .js .reveal.in { opacity: 1; transform: none; }
 .twinkle { animation: twinkle 4s ease-in-out infinite; }
 @keyframes twinkle { 0%, 100% { opacity: 0.25; } 50% { opacity: 0.9; } }
@@ -335,7 +348,7 @@ main { position: relative; }
 .in .draw, .hero .draw { animation: draw 2.4s var(--ease) 0.3s forwards; }
 @keyframes draw { to { stroke-dashoffset: 0; } }
 .pop { opacity: 0; transform-box: fill-box; transform-origin: center; }
-.in .pop, .hero .pop { animation: pop 600ms var(--ease) forwards; animation-delay: var(--d, 0s); }
+.in .pop, .hero .pop { animation: pop var(--dur-slow) var(--ease-enter) forwards; animation-delay: var(--d, 0s); }
 @keyframes pop { from { opacity: 0; transform: scale(0.4); } to { opacity: 1; transform: none; } }
 .glow-star { filter: drop-shadow(0 0 8px rgba(255, 204, 0, 0.7)); }
 .pulse { animation: pulse 3.2s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }

@@ -23,7 +23,7 @@ const dl = release.downloads;
 const sha = release.sha256 as Record<string, string | undefined>;
 const version = release.version ? `v${release.version}` : '';
 const wayKinds = ['dream', 'ward', 'step'] as const;
-const featureIcons = { chapter: 'CalendarRange', goals: 'TrendingUp', journal: 'NotebookPen', boards: 'Image' } as const;
+const featureIcons = { today: 'Sunrise', goals: 'Goal', search: 'Search', chapter: 'CalendarRange', journal: 'NotebookPen', boards: 'Image' } as const;
 const clarityIcons = ['KeyRound', 'Bot', 'ShieldCheck'] as const;
 const yoursIcons = ['HardDrive', 'ShieldCheck', 'Download', 'Code'] as const;
 const weekIcons = ['Sunrise', 'PenLine', 'BellRing', 'RotateCcw'] as const;
@@ -124,7 +124,7 @@ const providers = ['OpenAI', 'Anthropic', 'Gemini', 'OpenRouter', 'Mistral', 'Gr
           <div class="icon"><Icon name={featureIcons[f.icon as keyof typeof featureIcons]} /></div>
           <h3>{f.title}</h3>
           <p>{f.body}</p>
-          <div class="mini"><Mini kind={f.icon as 'chapter' | 'goals' | 'journal' | 'boards'} now={d.inside.chapterNow} risk={d.inside.momentum} rtl={rtl} /></div>
+          <div class="mini"><Mini kind={f.icon as keyof typeof featureIcons} now={d.inside.chapterNow} rtl={rtl} /></div>
         </article>
       ))}
     </div>
