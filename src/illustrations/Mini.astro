@@ -2,11 +2,13 @@
 /* Small sketches at the foot of the feature cards. */
 import { round, starPath } from '../lib/geom';
 
-interface Props { kind: 'chapter' | 'goals' | 'journal' | 'boards'; now?: string; risk?: string; rtl?: boolean }
-const { kind, now = '', risk = '', rtl = false } = Astro.props;
+interface Props { kind: 'today' | 'goals' | 'search' | 'chapter' | 'journal' | 'boards'; now?: string; rtl?: boolean }
+const { kind, now = '', rtl = false } = Astro.props;
 const flip = rtl ? 'translate(240 0) scale(-1 1)' : undefined;
 const X = (x: number) => (rtl ? 240 - x : x);
-const bars = [10, 14, 13, 18, 21, 24, 27, 22, 17];
+/* goals: a progress ring (60%) and the goal's steps rising to its star; the first three are done */
+const ring = 2 * Math.PI * 15;
+const steps = [[66, 33, 3], [96, 28, 3.6], [126, 23, 4.2], [156, 18, 4.8], [186, 13, 5.4]] as const;
 ---
 <svg viewBox="0 0 240 44" aria-hidden="true" focusable="false" direction="ltr">
   {kind === 'chapter' && (
@@ -17,15 +19,36 @@ const bars = [10, 14, 13, 18, 21, 24, 27, 22, 17];
       <text x={X(188)} y="26.5" text-anchor="middle" fill="#0a0a0f" font-size="11" font-weight="600">{now}</text>
     </g>
   )}
+  {kind === 'today' && (
+    <g transform={flip}>
+      {[0, 1, 2].map((i) => (
+        <g>
+          <circle cx="12" cy={8 + i * 14} r="5.5" fill={i === 0 ? '#ffcc00' : 'none'} stroke={i === 0 ? '#ffcc00' : 'rgba(255,255,255,0.3)'} stroke-width="1.5" />
+          {i === 0 && <path d="M9.2 8.2 l2 2 l3.6 -4" transform={rtl ? 'translate(24 0) scale(-1 1)' : undefined} fill="none" stroke="#0a0a0f" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />}
+          <rect x="26" y={6 + i * 14} width={[120, 168, 96][i]} height="4" rx="2" fill={i === 0 ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.16)'} />
+        </g>
+      ))}
+    </g>
+  )}
   {kind === 'goals' && (
+    <g transform={flip}>
+      <circle cx="22" cy="22" r="15" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="4" />
+      <circle cx="22" cy="22" r="15" fill="none" stroke="#ffcc00" stroke-width="4" stroke-linecap="round" stroke-dasharray={`${round(ring * 0.6)} ${round(ring)}`} transform="rotate(-90 22 22)" />
+      <path d="M66 33 Q140 22 218 10" fill="none" stroke="rgba(255,204,0,0.3)" stroke-width="1.5" stroke-dasharray="2 5" />
+      {steps.map(([x, y, r], i) => <circle cx={x} cy={y} r={r} fill={i < 3 ? '#ffcc00' : 'rgba(255,255,255,0.18)'} />)}
+      <path d={starPath(220, 10, 9)} fill="#ffcc00" class="glow-star" />
+    </g>
+  )}
+  {kind === 'search' && (
     <g>
       <g transform={flip}>
-        {bars.map((h, i) => (
-          <rect x={6 + i * 20} y={40 - h} width="12" height={h} rx="3" fill={i >= 7 ? '#a0a0b6' : '#ffcc00'} opacity={i >= 7 ? 0.5 : round(0.35 + i * 0.08)} />
-        ))}
+        <rect x="2" y="7" width="236" height="30" rx="15" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.14)" />
+        <circle cx="21" cy="21" r="5" fill="none" stroke="#a3a3b8" stroke-width="1.8" />
+        <path d="M24.8 24.8 l3.6 3.6" stroke="#a3a3b8" stroke-width="1.8" stroke-linecap="round" />
+        <rect x="38" y="20" width="96" height="4" rx="2" fill="rgba(255,255,255,0.16)" />
       </g>
-      <rect x={X(190) - (rtl ? 0 : 46)} y="4" width="46" height="16" rx="8" fill="rgba(255,204,0,0.12)" stroke="rgba(255,204,0,0.4)" />
-      <text x={X(190) + (rtl ? 23 : -23)} y="15.5" text-anchor="middle" fill="#ffcc00" font-size="9.5" font-weight="600">{risk}</text>
+      <rect x={X(226) - (rtl ? 0 : 38)} y="12" width="38" height="20" rx="6" fill="rgba(255,204,0,0.12)" stroke="rgba(255,204,0,0.4)" />
+      <text x={X(226) + (rtl ? 19 : -19)} y="26" text-anchor="middle" fill="#ffcc00" font-size="11" font-weight="600" direction="ltr">⌘K</text>
     </g>
   )}
   {kind === 'journal' && (
